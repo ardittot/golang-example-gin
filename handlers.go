@@ -23,16 +23,36 @@ func GetPerson(c *gin.Context) {
     c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": &Person{}})
 }
 
+// func CreatePerson(c *gin.Context) {
+//     var person Person
+//     param_id := c.Param("id")
+//     param_firstname := c.DefaultQuery("firstname", "Guest")
+//     // param_lastname := c.DefaultQuery("lastname", "")
+//     param_lastname := c.Query("lastname")
+//     // param_id = strconv.Atoi(c.PostForm("id"))
+//     person.ID = param_id
+//     person.Firstname = param_firstname
+//     person.Lastname = param_lastname
+//     people = append(people, person)
+//     c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": people})
+// }
+
 func CreatePerson(c *gin.Context) {
     var person Person
+    var json Person
+    // param_id = strconv.Atoi(c.PostForm("id"))
     param_id := c.Param("id")
     param_firstname := c.DefaultQuery("firstname", "Guest")
-    param_lastname := c.DefaultQuery("lastname", "")
-    // param_lastname := c.Query("lastname")
-    // param_id = strconv.Atoi(c.PostForm("id"))
+    // param_lastname := c.DefaultQuery("lastname", "")
+    param_lastname := c.Query("lastname")
     person.ID = param_id
     person.Firstname = param_firstname
     person.Lastname = param_lastname
+    if err := c.ShouldBindJSON(&json); err == nil {
+        person.ID = json.ID
+        person.Firstname = json.Firstname
+        person.Lastname = json.Lastname
+    }
     people = append(people, person)
     c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": people})
 }
