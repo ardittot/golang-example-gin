@@ -2,14 +2,15 @@ package main
 
 // Variable Types Declaration
 type Person struct {
-    ID        string   `json:"id,omitempty"`
-    Firstname string   `json:"firstname,omitempty"`
-    Lastname  string   `json:"lastname,omitempty"`
-    Address   *Address `json:"address,omitempty"`
+    ID        string   `json:"id"`
+    Firstname string   `json:"firstname"`
+    Lastname  string   `json:"lastname"`
+    Address   *Address `json:"address"`
 }
+
 type Address struct {
-    City  string `json:"city,omitempty"`
-    State string `json:"state,omitempty"`
+    City  string `json:"city"`
+    State string `json:"state"`
 }
 
 // Variables Declaration
